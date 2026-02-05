@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine?</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: #ffd1e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+.card {
+    background: white;
+    padding: 30px 35px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    z-index: 10;
+}
+
+h2 {
+    color: #ff4d88;
+    margin-bottom: 5px;
+}
+
+h1 {
+    color: #ff1a75;
+    font-size: 26px;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+button {
+    padding: 12px 28px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#yesBtn {
+    background: #ff4d88;
+    color: white;
+}
+
+#noBtn {
+    background: #e0e0e0;
+    margin-left: 10px;
+}
+
+#message {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #ff3385;
+    min-height: 24px;
+}
+
+/* Slight hover movement for No */
+#noBtn:hover {
+    transform: translateX(10px);
+}
+
+/* Floating hearts & teddy */
+.float {
+    position: absolute;
+    font-size: 24px;
+    animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>Hello my cute princess Aahana 💖</h2>
+    <h1>Will you be my Valentine? 💌</h1>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes 💕</button>
+        <button id="noBtn">No 🙈</button>
+    </div>
+
+    <div id="message"></div>
+</div>
+
+<audio id="yesSound">
+    <source src="https://www.soundjay.com/buttons/sounds/button-4.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const noMessages = [
+    "Are you sure? 🥺",
+    "Ek aur baar soch lo 😌",
+    "Dil toot raha hai 💔",
+    "Please na 😭",
+    "Okay last chance ❤️"
+];
+
+let noCount = 0;
+
+document.getElementById("yesBtn").addEventListener("click", () => {
+    document.getElementById("message").innerHTML =
+        "I knew it 😘❤️ You are my forever Valentine!";
+    document.getElementById("yesSound").play();
+});
+
+document.getElementById("noBtn").addEventListener("click", () => {
+    document.getElementById("message").innerHTML =
+        noMessages[noCount % noMessages.length];
+    noCount++;
+});
+
+function createFloat() {
+    const el = document.createElement("div");
+    el.classList.add("float");
+    el.innerHTML = Math.random() > 0.5 ? "❤️" : "🧸";
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(el);
+
+    setTimeout(() => {
+        el.remove();
+    }, 6000);
+}
+
+setInterval(createFloat, 500);
+</script>
+
+</body>
+</html>
