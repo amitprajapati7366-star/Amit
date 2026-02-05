@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Will You Be My Valentine?</title>
+<title>Valentine 💖</title>
 
 <style>
 body {
@@ -12,8 +12,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     overflow: hidden;
+}
+
+.hidden {
+    display: none;
 }
 
 .card {
@@ -27,16 +31,10 @@ body {
 
 h2 {
     color: #ff4d88;
-    margin-bottom: 5px;
 }
 
 h1 {
     color: #ff1a75;
-    font-size: 26px;
-}
-
-.buttons {
-    margin-top: 20px;
 }
 
 button {
@@ -58,19 +56,28 @@ button {
     margin-left: 10px;
 }
 
-#message {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #ff3385;
-    min-height: 24px;
-}
-
-/* Slight hover movement for No */
 #noBtn:hover {
     transform: translateX(10px);
 }
 
-/* Floating hearts & teddy */
+#message {
+    margin-top: 20px;
+    color: #ff3385;
+    font-size: 18px;
+    min-height: 24px;
+}
+
+/* second page */
+.page2 h1 {
+    font-size: 32px;
+}
+
+.page2 p {
+    font-size: 20px;
+    color: #ff4d88;
+}
+
+/* floating hearts & teddy */
 .float {
     position: absolute;
     font-size: 24px;
@@ -92,26 +99,35 @@ button {
 
 <body>
 
-<div class="card">
-    <h2>Hello my cute princess Aahana 💖</h2>
+<!-- PAGE 1 -->
+<div class="card page1">
+    <h2>Hello my cute princess Aahana 💕</h2>
     <h1>Will you be my Valentine? 💌</h1>
 
-    <div class="buttons">
-        <button id="yesBtn">Yes 💕</button>
+    <div>
+        <button id="yesBtn">Yes 💖</button>
         <button id="noBtn">No 🙈</button>
     </div>
 
     <div id="message"></div>
 </div>
 
-<audio id="yesSound">
-    <source src="https://www.soundjay.com/buttons/sounds/button-4.mp3" type="audio/mpeg">
+<!-- PAGE 2 -->
+<div class="card page2 hidden">
+    <h1>I knew it 😘❤️</h1>
+    <p>You are the reason my heart smiles 💕</p>
+    <p>Forever my Valentine 🧸💖</p>
+</div>
+
+<!-- Romantic background music -->
+<audio id="romanticSong" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 const noMessages = [
     "Are you sure? 🥺",
-    "Ek aur baar soch lo 😌",
+    "Ek baar aur soch lo 😌",
     "Dil toot raha hai 💔",
     "Please na 😭",
     "Okay last chance ❤️"
@@ -119,18 +135,23 @@ const noMessages = [
 
 let noCount = 0;
 
-document.getElementById("yesBtn").addEventListener("click", () => {
-    document.getElementById("message").innerHTML =
-        "I knew it 😘❤️ You are my forever Valentine!";
-    document.getElementById("yesSound").play();
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const message = document.getElementById("message");
+const song = document.getElementById("romanticSong");
+
+yesBtn.addEventListener("click", () => {
+    song.play();
+    document.querySelector(".page1").classList.add("hidden");
+    document.querySelector(".page2").classList.remove("hidden");
 });
 
-document.getElementById("noBtn").addEventListener("click", () => {
-    document.getElementById("message").innerHTML =
-        noMessages[noCount % noMessages.length];
+noBtn.addEventListener("click", () => {
+    message.innerHTML = noMessages[noCount % noMessages.length];
     noCount++;
 });
 
+/* floating hearts & teddy */
 function createFloat() {
     const el = document.createElement("div");
     el.classList.add("float");
@@ -139,9 +160,7 @@ function createFloat() {
     el.style.animationDuration = (3 + Math.random() * 3) + "s";
     document.body.appendChild(el);
 
-    setTimeout(() => {
-        el.remove();
-    }, 6000);
+    setTimeout(() => el.remove(), 6000);
 }
 
 setInterval(createFloat, 500);
